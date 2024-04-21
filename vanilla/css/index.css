@@ -1,0 +1,34 @@
+/* CSS Reset */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Roboto", sans-serif;
+  border: none;
+}
+:root {
+  --dark-gray: #333;
+  --gray: #666;
+  --light-gray: #999;
+  --turquoise: #00bfa5;
+  --yellow: #ffeb3b;
+  --red: #f44336;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--dark-gray);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: 50px repeat(3, 80px) 60px;
+}
+
+.grid div {
+  background-color: var(--red);
+  margin: 5px;
+}
