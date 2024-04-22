@@ -7,6 +7,7 @@
   font-family: "Roboto", sans-serif;
   border: none;
 }
+
 :root {
   --dark-gray: #333;
   --gray: #666;
@@ -28,11 +29,23 @@ body {
   flex-direction: column;
 }
 
+/* Global Styles */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 80px);
   grid-template-rows: 50px repeat(3, 80px) 60px;
   gap: 10px;
+}
+
+/* Desktop Styles */
+/* The `@media (min-width: 768px)` rule is a media query that targets devices with a minimum width of
+768 pixels. Within this media query, the styles specified for the `.grid` class are applied when the
+viewport width is equal to or greater than 768 pixels. */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: 60px repeat(3, 150px) 80px;
+  }
 }
 
 .turn {
