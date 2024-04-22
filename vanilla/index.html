@@ -3,14 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="css/index.css" />
     <title>Document</title>
   </head>
   <body>
     <main>
       <div class="grid">
-        <div class="turn"></div>
-        <div class="actions"></div>
+        <!-- Turn indicator -->
+        <div class="turn">
+          <!-- <i class="fa fa-circle-o" aria-hidden="true"></i> -->
+          <i class="fa fa-times fa-spin"></i>
+          <p>Player 1</p>
+        </div>
+        <!-- Dropdown menu -->
+        <div class="menu">
+          <button class="menu-btn" data-id="menu-button">
+            Actions
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="items border hidden" data-id="menu-popover">
+            <button class="menu-btn" data-id="restart-button">Restart</button>
+            <button class="menu-btn" data-id="undo-button">Undo</button>
+            <button class="menu-btn" data-id="redo-button">Redo</button>
+          </div>
+        </div>
+        <!-- Game board -->
         <div class="squares"></div>
         <div class="squares"></div>
         <div class="squares"></div>
@@ -20,6 +41,7 @@
         <div class="squares"></div>
         <div class="squares"></div>
         <div class="squares"></div>
+        <!-- Score board -->
         <div class="score"></div>
         <div class="score"></div>
         <div class="score"></div>

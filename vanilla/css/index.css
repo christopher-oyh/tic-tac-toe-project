@@ -48,15 +48,92 @@ viewport width is equal to or greater than 768 pixels. */
   }
 }
 
+/* Turn Styles */
+
 .turn {
-  background-color: var(--green);
+  /* background-color: var(--green); */
+  color: var(--yellow);
   grid-column-start: 1;
   grid-column-end: 3;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.actions {
-  background-color: var(--turquoise);
+/* Animations */
+@keyframes turn-icon-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
+
+@keyframes turn-text-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.turn p {
+  font-size: 1rem;
+  animation: turn-text-animation 1s;
+}
+
+.turn i {
+  font-size: 2rem;
+  margin-left: 10px;
+  animation: turn-icon-animation 1s;
+}
+
+/* Menu Styles */
+
+.menu {
+  /* background-color: var(--turquoise); */
+  /* Using relative as we will need it to get the position for dropdown */
+  position: relative;
+}
+
+.menu-btn {
+  /* background-color: var(--turquoise); */
+  color: var(--white);
+  background-color: var(--gray);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.menu .items {
+  /* position will be relative to nearest parent with relative position */
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  right: 0;
+  background-color: var(--gray);
+  border-radius: 10px;
+}
+
+.menu .items button {
+  background-color: transparent;
+  padding: 10px 20px;
+  color: var(--white);
+}
+
+/* Gameboard Styles */
 
 .squares {
   background-color: var(--red);
