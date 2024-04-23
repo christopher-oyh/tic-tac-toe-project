@@ -17,6 +17,7 @@
   --red: #f44336;
   --green: #4caf50;
   --white: #fff;
+  --lime-warm: #f9fbe7;
 }
 
 html,
@@ -27,6 +28,19 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+/* Shared Classes */
+.hidden {
+  display: none !important;
+}
+
+.border {
+  border: 1px solid var(--light-gray);
+}
+
+.shadow {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Global Styles */
@@ -115,12 +129,13 @@ viewport width is equal to or greater than 768 pixels. */
   align-items: center;
   border-radius: 10px;
   border: 1px solid transparent;
+  /* position: relative; */
 }
 
 .menu .items {
   /* position will be relative to nearest parent with relative position */
-  position: absolute;
-  z-index: 10;
+  /* position: absolute; */
+  /* z-index: 10; */
   top: 100%;
   right: 0;
   background-color: var(--gray);
@@ -133,16 +148,21 @@ viewport width is equal to or greater than 768 pixels. */
   color: var(--white);
 }
 
-/* Gameboard Styles */
+.menu .items button:hover {
+  background-color: var(--turquoise);
+  cursor: pointer;
+}
+
+/* Game board Styles */
 
 .squares {
-  background-color: var(--red);
+  /* background-color: var(--red); */
+  background-color: var(--gray);
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  color: white;
-  cursor: pointer;
 }
 
 .score {
