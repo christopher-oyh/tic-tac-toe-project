@@ -172,32 +172,37 @@ viewport width is equal to or greater than 768 pixels. */
 
 /* Score Styles */
 .score {
-  background-color: var(--yellow);
+  /* background-color: var(--yellow); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  border-radius: 10px;
 }
 
 /* Player 1 */
 #player1-box {
   background-color: var(--turquoise);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 10px; */
 }
 
 #ties-box {
   background-color: var(--lime-warm);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 10px; */
 }
 
 #player2-box {
   background-color: var(--yellow);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 10px; */
 }
 
 footer {
