@@ -7,12 +7,13 @@ const App = {
     menu: document.querySelector(".menu"),
     menuItems: document.querySelector(".items"),
   },
+  // es6 init function
+  init() {
+    App.$.menu.addEventListener("click", (event) => {
+      // console.log(event.target);
+      App.$.menuItems.classList.toggle("hidden");
+    });
+  },
 };
 
-// const menu = document.querySelector(".menu");
-// const menuItems = menu.querySelector(".items");
-
-App.$.menu.addEventListener("click", (event) => {
-  // console.log(event.target);
-  App.$.menuItems.classList.toggle("hidden");
-});
+window.addEventListener("load", () => App.init());
