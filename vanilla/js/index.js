@@ -1,9 +1,18 @@
 console.log("Hello from vanilla/js/index.js!");
 
-const menu = document.querySelector(".menu");
-const menuItems = menu.querySelector(".items");
+const App = {
+  // Properties of Namespace
+  // All of the selectors are stored here
+  $: {
+    menu: document.querySelector(".menu"),
+    menuItems: document.querySelector(".items"),
+  },
+};
 
-menu.addEventListener("click", (event) => {
+// const menu = document.querySelector(".menu");
+// const menuItems = menu.querySelector(".items");
+
+App.$.menu.addEventListener("click", (event) => {
   // console.log(event.target);
-  menuItems.classList.toggle("hidden");
+  App.$.menuItems.classList.toggle("hidden");
 });
