@@ -42,6 +42,9 @@ const App = {
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (event) => {
         console.log(`Square with id: ${event.target.id} clicked!`);
+        const icon = document.createElement("i");
+        icon.classList.add("fa", "fa-times");
+        event.target.appendChild(icon);
       });
     });
   },
