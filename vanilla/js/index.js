@@ -4,7 +4,7 @@ const App = {
   // Properties of Namespace
   // All of the selectors are stored here
   $: {
-    menu: document.querySelector(".menu"),
+    menu: document.querySelector("[data-id='menu']"),
     menuItems: document.querySelector(".items"),
   },
   // es6 init function
@@ -16,4 +16,4 @@ const App = {
   },
 };
 
-window.addEventListener("load", () => App.init());
+window.addEventListener("load", App.init);
