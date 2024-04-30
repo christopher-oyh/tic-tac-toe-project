@@ -16,10 +16,23 @@ const App = {
   // States of the application
   state: {
     currentPlayer: "X",
-    board: [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
+    movesHistory: [],
+    roundsHistory: [],
+  },
+
+  config: {
+    winningCombination: [
+      // Horizontal
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      // Vertical
+      [1, 4, 7],
+      [2, 5, 8],
+      [3, 6, 9],
+      // Diagonal
+      [1, 5, 9],
+      [3, 5, 7],
     ],
   },
 
@@ -53,23 +66,46 @@ const App = {
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (event) => {
         console.log(`Square with id: ${event.target.id} clicked!`);
-        console.log(`Current Player: ${App.state.currentPlayer}`);
+        console.log(
+          `Moves History: ${JSON.stringify(App.state.movesHistory, null, 2)}`
+        );
 
-        if (square.hasChildNodes()) {
-          console.log("This square is already filled!");
+        // Check if the current square is already filled from the moves history
+        const getMoveFromSquare = (squareID) => {
+          return App.state.movesHistory.find(
+            (move) => move.squareID === squareID
+          );
+        };
+
+        if (getMoveFromSquare(square.id)) {
+          console.log("Square already filled!");
+          console.log("Move: ", getMoveFromSquare(square.id));
           return;
         }
 
-        const currentPlayer = App.state.currentPlayer;
+        const lastPlayer = App.state.movesHistory.at(-1);
+        const currentPlayer = lastPlayer
+          ? lastPlayer.playerID === "X"
+            ? "O"
+            : "X"
+          : "X";
+        console.log("Last Player: ", lastPlayer);
+        console.log("Current Player: ", currentPlayer);
+
         const icon = document.createElement("i");
         if (currentPlayer === "X") {
           icon.classList.add("fa", "fa-times");
-          App.state.currentPlayer = "O";
         } else {
           icon.classList.add("fa", "fa-circle-o");
-          App.state.currentPlayer = "X";
         }
         square.appendChild(icon);
+        // Save the move to the history
+        App.state.movesHistory.push({
+          squareID: square.id,
+          playerID: currentPlayer,
+        });
+
+        // Check if the round is over
       });
     });
   },
