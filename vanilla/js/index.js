@@ -12,6 +12,17 @@ const App = {
     redoBtn: document.querySelector("[data-id='redo-btn']"),
     squares: document.querySelectorAll("[data-id='squares']"),
   },
+
+  // States of the application
+  state: {
+    currentPlayer: "X",
+    board: [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ],
+  },
+
   // es6 init function
   init() {
     App.registerEventListeners();
@@ -42,9 +53,23 @@ const App = {
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (event) => {
         console.log(`Square with id: ${event.target.id} clicked!`);
+        console.log(`Current Player: ${App.state.currentPlayer}`);
+
+        if (square.hasChildNodes()) {
+          console.log("This square is already filled!");
+          return;
+        }
+
+        const currentPlayer = App.state.currentPlayer;
         const icon = document.createElement("i");
-        icon.classList.add("fa", "fa-times");
-        event.target.appendChild(icon);
+        if (currentPlayer === "X") {
+          icon.classList.add("fa", "fa-times");
+          App.state.currentPlayer = "O";
+        } else {
+          icon.classList.add("fa", "fa-circle-o");
+          App.state.currentPlayer = "X";
+        }
+        square.appendChild(icon);
       });
     });
   },
