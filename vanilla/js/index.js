@@ -8,6 +8,8 @@ const App = {
     menuItems: document.querySelector(".items"),
     resetBtn: document.querySelector("[data-id='reset-btn']"),
     newRoundBtn: document.querySelector("[data-id='new-round-btn']"),
+    undoBtn: document.querySelector("[data-id='undo-btn']"),
+    redoBtn: document.querySelector("[data-id='redo-btn']"),
     squares: document.querySelectorAll("[data-id='squares']"),
   },
   // es6 init function
@@ -27,6 +29,14 @@ const App = {
 
     App.$.newRoundBtn.addEventListener("click", (event) => {
       console.log("New Round Button Clicked!");
+    });
+
+    App.$.undoBtn.addEventListener("click", (event) => {
+      console.log("Undo Button Clicked!");
+    });
+
+    App.$.redoBtn.addEventListener("click", (event) => {
+      console.log("Redo Button Clicked!");
     });
 
     App.$.squares.forEach((square) => {
