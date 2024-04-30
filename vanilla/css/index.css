@@ -172,6 +172,14 @@ viewport width is equal to or greater than 768 pixels. */
   opacity: 0.7;
 }
 
+#o {
+  color: var(--yellow);
+}
+
+#x {
+  color: var(--turquoise);
+}
+
 /* Score Styles */
 .score {
   /* background-color: var(--yellow); */
