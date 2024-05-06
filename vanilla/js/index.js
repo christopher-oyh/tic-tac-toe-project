@@ -36,6 +36,36 @@ const App = {
     ],
   },
 
+  getGameStatus(moves) {
+    const xMoves = moves
+      .filter((move) => move.playerID === "X")
+      .map((move) => parseInt(move.squareID));
+    const oMoves = moves
+      .filter((move) => move.playerID === "O")
+      .map((move) => parseInt(move.squareID));
+    // console.log("X Moves: ", xMoves);
+    // console.log("O Moves: ", oMoves);
+
+    // Check if one of the players won
+    let winner = null;
+    App.config.winningCombination.forEach((pattern) => {
+      const xWins = pattern.every((squareID) => xMoves.includes(squareID));
+      const oWins = pattern.every((squareID) => oMoves.includes(squareID));
+      if (xWins) {
+        winner = "X";
+      }
+      if (oWins) {
+        winner = "O";
+      }
+    });
+
+    return {
+      status:
+        moves.length === 9 || winner !== null ? "complete" : "in-progress",
+      winner: winner,
+    };
+  },
+
   // es6 init function
   init() {
     App.registerEventListeners();
@@ -79,7 +109,7 @@ const App = {
 
         if (getMoveFromSquare(square.id)) {
           console.log("Square already filled!");
-          console.log("Move: ", getMoveFromSquare(square.id));
+          // console.log("Move: ", getMoveFromSquare(square.id));
           return;
         }
 
@@ -105,7 +135,15 @@ const App = {
           playerID: currentPlayer,
         });
 
-        // Check if the round is over
+        // Get the game status
+        const gameStatus = App.getGameStatus(App.state.movesHistory);
+        if (gameStatus.status === "complete") {
+          if (gameStatus.winner) {
+            console.log(`Player ${gameStatus.winner} won!`);
+          } else {
+            console.log("It's a draw!");
+          }
+        }
       });
     });
   },
