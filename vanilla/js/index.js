@@ -15,6 +15,8 @@ const App = {
     modal: document.querySelector("[data-id='modal']"),
     modalText: document.querySelector("[data-id='modal-text']"),
     modalBtn: document.querySelector("[data-id='modal-btn']"),
+
+    turn: document.querySelector("[data-id='turn']"),
   },
 
   // States of the application
@@ -141,12 +143,17 @@ const App = {
         console.log("Last Player: ", lastPlayer);
         console.log("Current Player: ", currentPlayer);
 
+        const turnLabel = document.createElement("p");
         const icon = document.createElement("i");
+
         if (currentPlayer === "X") {
+          turnLabel.innerText = "Player O's Turn";
           icon.classList.add("fa", "fa-times");
         } else {
+          turnLabel.innerText = "Player X's Turn";
           icon.classList.add("fa", "fa-circle-o");
         }
+        App.$.turn.replaceChildren(icon, turnLabel);
         square.appendChild(icon);
         // Save the move to the history
         App.state.movesHistory.push({

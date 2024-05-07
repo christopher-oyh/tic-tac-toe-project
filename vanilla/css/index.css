@@ -112,6 +112,14 @@ viewport width is equal to or greater than 768 pixels. */
   animation: turn-icon-animation 1s;
 }
 
+.fa-times {
+  color: var(--turquoise);
+}
+
+.fa-circle-o {
+  color: var(--yellow);
+}
+
 /* Menu Styles */
 
 .menu {
@@ -170,14 +178,6 @@ viewport width is equal to or greater than 768 pixels. */
 .squares:hover {
   cursor: pointer;
   opacity: 0.7;
-}
-
-.fa-times {
-  color: var(--yellow);
-}
-
-.fa-circle-o {
-  color: var(--turquoise);
 }
 
 /* Score Styles */
