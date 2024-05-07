@@ -11,6 +11,10 @@ const App = {
     undoBtn: document.querySelector("[data-id='undo-btn']"),
     redoBtn: document.querySelector("[data-id='redo-btn']"),
     squares: document.querySelectorAll("[data-id='squares']"),
+
+    modal: document.querySelector("[data-id='modal']"),
+    modalText: document.querySelector("[data-id='modal-text']"),
+    modalBtn: document.querySelector("[data-id='modal-btn']"),
   },
 
   // States of the application
@@ -36,6 +40,13 @@ const App = {
     ],
   },
 
+  /**
+   * Get the game status
+   * @param {Array} moves
+   * @returns {Object} gameStatus
+   * @returns {String} gameStatus.status
+   * @returns {String} gameStatus.winner
+   * */
   getGameStatus(moves) {
     const xMoves = moves
       .filter((move) => move.playerID === "X")
@@ -46,7 +57,7 @@ const App = {
     // console.log("X Moves: ", xMoves);
     // console.log("O Moves: ", oMoves);
 
-    // Check if one of the players won
+    // Check if one of the players won using the winning combination from the config
     let winner = null;
     App.config.winningCombination.forEach((pattern) => {
       const xWins = pattern.every((squareID) => xMoves.includes(squareID));
@@ -93,12 +104,20 @@ const App = {
       console.log("Redo Button Clicked!");
     });
 
+    App.$.modalBtn.addEventListener("click", (event) => {
+      App.state.movesHistory = [];
+      App.$.squares.forEach((square) => {
+        square.innerHTML = "";
+      });
+      App.$.modal.classList.add("hidden");
+    });
+
     App.$.squares.forEach((square) => {
       square.addEventListener("click", (event) => {
-        console.log(`Square with id: ${event.target.id} clicked!`);
-        console.log(
-          `Moves History: ${JSON.stringify(App.state.movesHistory, null, 2)}`
-        );
+        // console.log(`Square with id: ${event.target.id} clicked!`);
+        // console.log(
+        //   `Moves History: ${JSON.stringify(App.state.movesHistory, null, 2)}`
+        // );
 
         // Check if the current square is already filled from the moves history
         const getMoveFromSquare = (squareID) => {
@@ -138,11 +157,19 @@ const App = {
         // Get the game status
         const gameStatus = App.getGameStatus(App.state.movesHistory);
         if (gameStatus.status === "complete") {
+          let text = "";
+          // Check if the winner is X or O
           if (gameStatus.winner) {
+            text = `Player ${gameStatus.winner} won!`;
+
             console.log(`Player ${gameStatus.winner} won!`);
           } else {
+            text = "It's a draw!";
             console.log("It's a draw!");
           }
+          // Show the modal
+          App.$.modalText.textContent = text;
+          App.$.modal.classList.remove("hidden");
         }
       });
     });
