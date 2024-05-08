@@ -144,17 +144,21 @@ const App = {
         console.log("Current Player: ", currentPlayer);
 
         const turnLabel = document.createElement("p");
-        const icon = document.createElement("i");
-
+        const turnIcon = document.createElement("i");
+        const squareIcon = document.createElement("i");
+        nextPlayer = currentPlayer === "X" ? "O" : "X";
+        turnLabel.textContent = `Player ${currentPlayer}'s turn`;
         if (currentPlayer === "X") {
-          turnLabel.innerText = "Player O's Turn";
-          icon.classList.add("fa", "fa-times");
+          turnIcon.classList.add("fa", "fa-times");
+          squareIcon.classList.add("fa", "fa-circle-o");
         } else {
-          turnLabel.innerText = "Player X's Turn";
-          icon.classList.add("fa", "fa-circle-o");
+          turnIcon.classList.add("fa", "fa-circle-o");
+          squareIcon.classList.add("fa", "fa-times");
         }
-        App.$.turn.replaceChildren(icon, turnLabel);
-        square.appendChild(icon);
+
+        App.$.turn.replaceChildren(turnIcon, turnLabel);
+        square.appendChild(squareIcon);
+
         // Save the move to the history
         App.state.movesHistory.push({
           squareID: square.id,
