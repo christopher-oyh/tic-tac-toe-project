@@ -151,9 +151,11 @@ const App = {
         if (currentPlayer === "X") {
           turnIcon.classList.add("fa", "fa-times");
           squareIcon.classList.add("fa", "fa-circle-o");
+          turnLabel.classList = "turquoise";
         } else {
           turnIcon.classList.add("fa", "fa-circle-o");
           squareIcon.classList.add("fa", "fa-times");
+          turnLabel.classList = "yellow";
         }
 
         App.$.turn.replaceChildren(turnIcon, turnLabel);

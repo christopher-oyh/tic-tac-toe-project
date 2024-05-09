@@ -120,6 +120,14 @@ viewport width is equal to or greater than 768 pixels. */
   color: var(--yellow);
 }
 
+.turquoise {
+  color: var(--turquoise);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
 /* Menu Styles */
 
 .menu {
