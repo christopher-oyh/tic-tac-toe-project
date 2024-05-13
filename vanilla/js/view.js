@@ -1,4 +1,4 @@
-class View {
+export default class View {
   // Class properties
   $ = {};
   constructor() {
@@ -14,5 +14,20 @@ class View {
     this.$.modalText = document.querySelector("[data-id='modal-text']");
     this.$.modalBtn = document.querySelector("[data-id='modal-btn']");
     this.$.turn = document.querySelector("[data-id='turn']");
+  }
+
+  // Class methods
+  bindGameResetEvent(handler) {
+    this.$.resetBtn.addEventListener("click", handler);
+  }
+
+  bindGameResetEvent(handler) {
+    this.$.newRoundBtn.addEventListener("click", handler);
+  }
+
+  bindPlayerMoveEvent(handler) {
+    this.$.squares.forEach((square) => {
+      squares.addEventListener("click", handler);
+    });
   }
 }

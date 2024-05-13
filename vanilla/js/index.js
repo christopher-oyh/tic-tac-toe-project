@@ -1,4 +1,5 @@
 console.log("Hello from vanilla/js/index.js!");
+import View from "./view.js";
 
 const App = {
   // Properties of Namespace
@@ -189,4 +190,11 @@ const App = {
   },
 };
 
-window.addEventListener("load", App.init);
+// window.addEventListener("load", App.init);
+
+function init() {
+  const view = new View();
+  console.log(view);
+}
+
+window.addEventListener("load", init);
