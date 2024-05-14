@@ -3,7 +3,8 @@ export default class View {
   $ = {};
   constructor() {
     this.$.menu = document.querySelector("[data-id='menu']");
-    this.$.menuItems = document.querySelector(".items");
+    this.$.menuBtn = document.querySelector("[data-id='menu-btn']");
+    this.$.menuItems = document.querySelector("[data-id='menu-items']");
     this.$.resetBtn = document.querySelector("[data-id='reset-btn']");
     this.$.newRoundBtn = document.querySelector("[data-id='new-round-btn']");
     this.$.undoBtn = document.querySelector("[data-id='undo-btn']");
@@ -14,6 +15,11 @@ export default class View {
     this.$.modalText = document.querySelector("[data-id='modal-text']");
     this.$.modalBtn = document.querySelector("[data-id='modal-btn']");
     this.$.turn = document.querySelector("[data-id='turn']");
+
+    // UI Only event listeners
+    this.$.menuBtn.addEventListener("click", (e) => {
+      this.$.menuItems.classList.toggle("hidden");
+    });
   }
 
   // Class methods
