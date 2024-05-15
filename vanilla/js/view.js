@@ -38,7 +38,8 @@ export default class View {
 
   bindPlayerMoveEvent(handler) {
     this.$$.squares.forEach((square) => {
-      square.addEventListener("click", handler);
+      // Pass the square element to the handler instead of the event
+      square.addEventListener("click", () => handler(square));
     });
   }
 

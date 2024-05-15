@@ -16,6 +16,7 @@ export default class Store {
 
     return {
       currentPlayer,
+      movesHistory: state.movesHistory,
     };
   }
 

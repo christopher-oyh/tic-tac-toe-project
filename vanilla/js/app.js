@@ -30,12 +30,21 @@ function init() {
     console.log(event);
   });
 
-  view.bindPlayerMoveEvent((event) => {
-    const clickedSquare = event.target;
+  view.bindPlayerMoveEvent((square) => {
+    const clickedSquare = square;
+    const existingMove = store.game.movesHistory.find(
+      (move) => move.squareID === clickedSquare.id
+    );
+    if (existingMove) {
+      console.log("Square already filled!");
+      return;
+    }
 
+    // Place icon on the square
     view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
+    // Update the game state with the move
     store.playerMove(clickedSquare.id);
-    // Update the turn indicator from the store since state has changed
+    // Set the next player turn indicator from the store since state has changed
     view.setTurnIndicator(store.game.currentPlayer);
   });
   console.log(view);
