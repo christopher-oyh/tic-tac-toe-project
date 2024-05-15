@@ -112,14 +112,6 @@ viewport width is equal to or greater than 768 pixels. */
   animation: turn-icon-animation 1s;
 }
 
-.fa-times {
-  color: var(--turquoise);
-}
-
-.fa-circle-o {
-  color: var(--yellow);
-}
-
 .turquoise {
   color: var(--turquoise);
 }
