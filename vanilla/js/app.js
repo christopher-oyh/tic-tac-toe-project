@@ -18,7 +18,7 @@ const players = [
 
 function init() {
   const view = new View();
-  const store = new Store();
+  const store = new Store(players);
 
   view.bindGameResetEvent((event) => {
     console.log("Game Reset Event");
@@ -31,10 +31,12 @@ function init() {
   });
 
   view.bindPlayerMoveEvent((event) => {
-    // console.log("Player Move Event");
+    const clickedSquare = event.target;
 
-    view.setTurnIndicator(players[0]);
-    view.handlePlayerMove(event.target, players[0]);
+    view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
+    store.playerMove(clickedSquare.id);
+    // Update the turn indicator from the store since state has changed
+    view.setTurnIndicator(store.game.currentPlayer);
   });
   console.log(view);
 }

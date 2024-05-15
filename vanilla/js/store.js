@@ -11,8 +11,24 @@ export default class Store {
 
   get game() {
     const state = this.#getState();
-    // Temp hardcoded value
-    const currentPlayer = this.players[0];
+
+    const currentPlayer = this.players[this.#state.movesHistory.length % 2];
+
+    return {
+      currentPlayer,
+    };
+  }
+
+  playerMove(squareID) {
+    const state = this.#getState();
+    const stateClone = structuredClone(state);
+
+    stateClone.movesHistory.push({
+      squareID, // Equivalent to squareID: squareID
+      player: this.game.currentPlayer,
+    });
+
+    this.#saveState(stateClone);
   }
 
   #getState() {
