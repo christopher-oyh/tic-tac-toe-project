@@ -54,6 +54,24 @@ export default class View {
     icon.classList.toggle("fa-caret-up");
   }
 
+  setTurnIndicator(player) {
+    // Player could be 1 or 2
+    const icon = document.createElement("i");
+    const label = document.createElement("p");
+
+    icon.classList.add("fa", player.iconClass, player.colorClass);
+
+    label.classList.add(player.colorClass);
+    label.innerText = `${player.name}'s Turn`;
+    this.$.turn.replaceChildren(icon, label);
+  }
+
+  handlePlayerMove(squareElement, player) {
+    const icon = document.createElement("i");
+    icon.classList.add("fa", player.iconClass, player.colorClass);
+    squareElement.replaceChildren(icon);
+  }
+
   #qsCheck(selector, parent) {
     const ele = parent
       ? parent.querySelector(selector)
