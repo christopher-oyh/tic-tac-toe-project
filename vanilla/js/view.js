@@ -8,7 +8,7 @@ export default class View {
     this.$.menuBtn = this.#qsCheck("[data-id='menu-btn']");
     this.$.menuItems = this.#qsCheck("[data-id='menu-items']");
     this.$.resetBtn = this.#qsCheck("[data-id='reset-btn']");
-    this.$.newRoundBtn = this.#qsCheck("[data-id='new-round-btn']");
+    this.$.resetScoresBtn = this.#qsCheck("[data-id='reset-scores-btn']");
     this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
     this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
 
@@ -28,12 +28,12 @@ export default class View {
   /**
    *  Register all the event listeners
    */
-  bindGameResetEvent(handler) {
+  bindResetRoundEvent(handler) {
     this.$.resetBtn.addEventListener("click", handler);
   }
 
-  bindNewRoundEvent(handler) {
-    this.$.newRoundBtn.addEventListener("click", handler);
+  bindResetScoresEvent(handler) {
+    this.$.resetScoresBtn.addEventListener("click", handler);
   }
 
   bindPlayerMoveEvent(handler) {
@@ -47,6 +47,7 @@ export default class View {
    *  DOM Helper Methods
    */
   openModal(message) {
+    this.$.modalText.innerText = message;
     this.$.modal.classList.remove("hidden");
   }
 

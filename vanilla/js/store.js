@@ -39,25 +39,11 @@ export default class Store {
         // console.log("Pattern: ", pattern);
         if (pattern.every((squareID) => selectedSquareIDs.includes(squareID))) {
           winner = player;
-          console.log("Winner: ", winner);
+          //   console.log("Winner: ", winner);
           break;
         }
       }
     }
-    // console.log("Current Player: ", currentPlayer);
-    // for (const player of this.players) {
-    //   console.log(this.#state.movesHistory);
-    //   const selectedSquareIDs = state.movesHistory.filter(
-    //     (move) => move.player.id === player.id
-    //   );
-    // }
-    // // Check if there is a winner
-    // for (const pattern of this.#winningCombination) {
-    //   if (pattern.every((squareID) => selectedSquares.includes(squareID))) {
-    //     winner = player;
-    //     break;
-    //   }
-    // }
 
     return {
       currentPlayer,

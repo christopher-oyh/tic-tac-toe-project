@@ -20,21 +20,23 @@ function init() {
   const view = new View();
   const store = new Store(players);
 
-  view.bindGameResetEvent((event) => {
+  view.bindResetRoundEvent((event) => {
     console.log("Game Reset Event");
     console.log(event);
   });
 
-  view.bindNewRoundEvent((event) => {
-    console.log("New Round Event");
+  view.bindResetRoundEvent((event) => {
+    console.log("Game Reset Event");
     console.log(event);
   });
 
   view.bindPlayerMoveEvent((square) => {
     const clickedSquare = square;
     const existingMove = store.game.movesHistory.find(
-      (move) => move.squareID === clickedSquare.id
+      (move) => move.squareID === +clickedSquare.id
     );
+    console.log("Clicked Square: ", clickedSquare);
+    console.log("Existing Move: ", existingMove);
     if (existingMove) {
       console.log("Square already filled!");
       return;
@@ -42,17 +44,23 @@ function init() {
 
     // Place icon on the square
     view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
+
     // Update the game state with the move
     store.playerMove(clickedSquare.id);
+
     // Check if the game is over
     if (store.game.status.isComplete) {
-      view.openModal("Game Over!");
+      view.openModal(
+        store.game.status.winner
+          ? `${store.game.status.winner.name} won!`
+          : "It's a draw!"
+      );
       return;
     }
+
     // Set the next player turn indicator from the store since state has changed
     view.setTurnIndicator(store.game.currentPlayer);
   });
-  console.log(view);
 }
 
 window.addEventListener("load", init);
