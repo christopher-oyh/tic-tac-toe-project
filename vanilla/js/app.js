@@ -44,6 +44,11 @@ function init() {
     view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
     // Update the game state with the move
     store.playerMove(clickedSquare.id);
+    // Check if the game is over
+    if (store.game.status.isComplete) {
+      view.openModal("Game Over!");
+      return;
+    }
     // Set the next player turn indicator from the store since state has changed
     view.setTurnIndicator(store.game.currentPlayer);
   });

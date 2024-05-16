@@ -46,6 +46,10 @@ export default class View {
   /**
    *  DOM Helper Methods
    */
+  openModal(message) {
+    this.$.modal.classList.remove("hidden");
+  }
+
   #toggleMenu() {
     this.$.menuItems.classList.toggle("hidden");
     this.$.menuBtn.classList.toggle("border");

@@ -1,9 +1,22 @@
 const initialState = {
-  movesHistory: [],
+  movesHistory: [], // squareID, player
 };
 
 export default class Store {
   #state = initialState;
+  #winningCombination = [
+    // Horizontal
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    // Vertical
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    // Diagonal
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
 
   constructor(players) {
     this.players = players;
@@ -14,9 +27,45 @@ export default class Store {
 
     const currentPlayer = this.players[this.#state.movesHistory.length % 2];
 
+    let winner = null;
+    for (const player of this.players) {
+      //   console.log("Player: ", player);
+      const selectedSquareIDs = state.movesHistory
+        .filter((movesHistory) => movesHistory.player.id === player.id)
+        .map((movesHistory) => movesHistory.squareID);
+
+      // Check if the player has won
+      for (const pattern of this.#winningCombination) {
+        // console.log("Pattern: ", pattern);
+        if (pattern.every((squareID) => selectedSquareIDs.includes(squareID))) {
+          winner = player;
+          console.log("Winner: ", winner);
+          break;
+        }
+      }
+    }
+    // console.log("Current Player: ", currentPlayer);
+    // for (const player of this.players) {
+    //   console.log(this.#state.movesHistory);
+    //   const selectedSquareIDs = state.movesHistory.filter(
+    //     (move) => move.player.id === player.id
+    //   );
+    // }
+    // // Check if there is a winner
+    // for (const pattern of this.#winningCombination) {
+    //   if (pattern.every((squareID) => selectedSquares.includes(squareID))) {
+    //     winner = player;
+    //     break;
+    //   }
+    // }
+
     return {
       currentPlayer,
       movesHistory: state.movesHistory,
+      status: {
+        isComplete: winner != null || state.movesHistory.length === 9,
+        winner,
+      },
     };
   }
 
@@ -25,16 +74,17 @@ export default class Store {
     const stateClone = structuredClone(state);
 
     stateClone.movesHistory.push({
-      squareID, // Equivalent to squareID: squareID
+      squareID: +squareID, // Equivalent to squareID: squareID
       player: this.game.currentPlayer,
     });
-
+    console.log("State Clone: ", stateClone);
     this.#saveState(stateClone);
   }
 
   #getState() {
     return this.#state;
   }
+
   #saveState(stateOrCallback) {
     const prevState = this.#getState();
 
