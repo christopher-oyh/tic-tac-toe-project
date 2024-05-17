@@ -27,9 +27,9 @@ function init() {
 
   view.bindResetRoundEvent((event) => {
     console.log("Game Reset Event");
-    console.log(event);
+    // console.log(event);
   });
-
+  s;
   view.bindPlayerMoveEvent((square) => {
     const clickedSquare = square;
     const existingMove = store.game.movesHistory.find(
