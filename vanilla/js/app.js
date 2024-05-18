@@ -19,30 +19,29 @@ const players = [
 function init() {
   const view = new View();
   const store = new Store("t3-storage-key", players);
+  initView();
 
-  view.bindGameResetEvent((event) => {
+  function initView() {
     view.closeAll();
-    store.resetGame();
     view.clearBoard();
-    view.setTurnIndicator(players[0]);
+    view.setTurnIndicator(store.game.currentPlayer);
     view.updateScoreBoard(
       store.stats.playerWithStats[0].wins,
       store.stats.ties,
       store.stats.playerWithStats[1].wins
     );
-    // console.log(store.stats);
+    console.log("Current Game Moves: ", store.game.currentGameMoves);
+    view.initializeBoard(store.game.currentGameMoves);
+  }
+
+  view.bindGameResetEvent((event) => {
+    store.resetGame();
+    initView();
   });
 
   view.bindScoresResetEvent((event) => {
     store.resetScores();
-    view.closeAll();
-    view.clearBoard();
-    view.setTurnIndicator(players[0]);
-    view.updateScoreBoard(
-      store.stats.playerWithStats[0].wins,
-      store.stats.ties,
-      store.stats.playerWithStats[1].wins
-    );
+    initView();
   });
 
   view.bindPlayerMoveEvent((square) => {
