@@ -20,6 +20,10 @@ function init() {
   const view = new View();
   const store = new Store("t3-storage-key", players);
   initView();
+  window.addEventListener("storage", () => {
+    console.log("State Changed from another window!");
+    initView();
+  });
 
   function initView() {
     view.closeAll();
