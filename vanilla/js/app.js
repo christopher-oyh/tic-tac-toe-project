@@ -25,6 +25,12 @@ function init() {
     store.resetGame();
     view.clearBoard();
     view.setTurnIndicator(players[0]);
+    view.updateScoreBoard(
+      store.stats.playerWithStats[0].wins,
+      store.stats.ties,
+      store.stats.playerWithStats[1].wins
+    );
+    console.log(store.stats);
   });
 
   view.bindScoresResetEvent((event) => {
@@ -34,11 +40,11 @@ function init() {
 
   view.bindPlayerMoveEvent((square) => {
     const clickedSquare = square;
-    const existingMove = store.game.movesHistory.find(
+    const existingMove = store.game.currentGameMoves.find(
       (move) => move.squareID === +clickedSquare.id
     );
-    console.log("Clicked Square: ", clickedSquare);
-    console.log("Existing Move: ", existingMove);
+    // console.log("Clicked Square: ", clickedSquare);
+    // console.log("Existing Move: ", existingMove);
     if (existingMove) {
       console.log("Square already filled!");
       return;

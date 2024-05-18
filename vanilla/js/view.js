@@ -19,6 +19,10 @@ export default class View {
     this.$.modalBtn = this.#qsCheck("[data-id='modal-btn']");
     this.$.turn = this.#qsCheck("[data-id='turn']");
 
+    this.$.p1Wins = this.#qsCheck("[data-id='p1-wins']");
+    this.$.ties = this.#qsCheck("[data-id='ties']");
+    this.$.p2Wins = this.#qsCheck("[data-id='p2-wins']");
+
     // UI Only event listeners
     this.$.menuBtn.addEventListener("click", (e) => {
       this.#toggleMenu();
@@ -47,6 +51,12 @@ export default class View {
   /**
    *  DOM Helper Methods
    */
+  updateScoreBoard(p1Wins, ties, p2Wins) {
+    this.$.p1Wins.innerText = `${p1Wins} Wins`;
+    this.$.ties.innerText = `${ties}`;
+    this.$.p2Wins.innerText = `${p2Wins} Wins`;
+  }
+
   openModal(message) {
     this.$.modalText.innerText = message;
     this.$.modal.classList.remove("hidden");
