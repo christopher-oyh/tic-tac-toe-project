@@ -20,16 +20,18 @@ function init() {
   const view = new View();
   const store = new Store(players);
 
-  view.bindResetRoundEvent((event) => {
-    console.log("Game Reset Event");
+  view.bindGameResetEvent((event) => {
+    view.closeModal();
+    store.resetGame();
+    view.clearBoard();
+    view.setTurnIndicator(players[0]);
+  });
+
+  view.bindScoresResetEvent((event) => {
+    console.log("Scores Reset Event");
     console.log(event);
   });
 
-  view.bindResetRoundEvent((event) => {
-    console.log("Game Reset Event");
-    // console.log(event);
-  });
-  s;
   view.bindPlayerMoveEvent((square) => {
     const clickedSquare = square;
     const existingMove = store.game.movesHistory.find(

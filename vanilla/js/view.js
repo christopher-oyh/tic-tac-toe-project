@@ -28,11 +28,12 @@ export default class View {
   /**
    *  Register all the event listeners
    */
-  bindResetRoundEvent(handler) {
+  bindGameResetEvent(handler) {
     this.$.resetBtn.addEventListener("click", handler);
+    this.$.modalBtn.addEventListener("click", handler);
   }
 
-  bindResetScoresEvent(handler) {
+  bindScoresResetEvent(handler) {
     this.$.resetScoresBtn.addEventListener("click", handler);
   }
 
@@ -49,6 +50,16 @@ export default class View {
   openModal(message) {
     this.$.modalText.innerText = message;
     this.$.modal.classList.remove("hidden");
+  }
+
+  closeModal() {
+    this.$.modal.classList.add("hidden");
+  }
+
+  clearBoard() {
+    this.$$.squares.forEach((sq) => {
+      sq.innerHTML = "";
+    });
   }
 
   #toggleMenu() {
