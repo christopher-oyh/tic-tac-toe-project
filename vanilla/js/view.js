@@ -49,6 +49,7 @@ export default class View {
     if (isComplete) {
       this.#openModal(winner ? `${winner.name} won!` : "It's a draw!");
     }
+
     this.#setTurnIndicator(currentPlayer);
   }
 

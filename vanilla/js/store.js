@@ -6,7 +6,7 @@ const initialState = {
   },
 };
 
-export default class Store {
+export default class Store extends EventTarget {
   #winningCombination = [
     // Horizontal
     [1, 2, 3],
@@ -22,6 +22,7 @@ export default class Store {
   ];
 
   constructor(key, players) {
+    super();
     this.storageKey = key;
     this.players = players;
   }
@@ -130,5 +131,7 @@ export default class Store {
         throw new Error("Invalid state or callback provided to saveState");
     }
     window.localStorage.setItem(this.storageKey, JSON.stringify(newState));
+
+    this.dispatchEvent(new Event("stateChange"));
   }
 }

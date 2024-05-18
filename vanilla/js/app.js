@@ -18,14 +18,21 @@ const players = [
 
 function init() {
   const view = new View();
-  const store = new Store("t3-storage-key", players);
-  view.render(store.game, store.stats);
 
+  const store = new Store("t3-storage-key", players);
+
+  // State change from the same window
+  store.addEventListener("stateChange", () => {
+    view.render(store.game, store.stats);
+  });
+
+  // State change from another window
   window.addEventListener("storage", () => {
     console.log("State Updated from another Window");
     view.render(store.game, store.stats);
   });
 
+  view.render(store.game, store.stats);
   //   function initView() {
   //     view.closeAll();
   //     view.clearBoard();
@@ -41,12 +48,10 @@ function init() {
 
   view.bindGameResetEvent((event) => {
     store.resetGame();
-    view.render(store.game, store.stats);
   });
 
   view.bindScoresResetEvent((event) => {
     store.resetScores();
-    view.render(store.game, store.stats);
   });
 
   view.bindPlayerMoveEvent((square) => {
@@ -65,7 +70,7 @@ function init() {
     // view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
 
     // Update the game state with the move
-    store.playerMove(clickedSquare.id);
+    store.playerMove(+clickedSquare.id);
 
     // // Check if the game is over
     // if (store.game.status.isComplete) {
@@ -79,7 +84,7 @@ function init() {
 
     // // Set the next player turn indicator from the store since state has changed
     // view.setTurnIndicator(store.game.currentPlayer);
-    view.render(store.game, store.stats);
+    // view.render(store.game, store.stats);
   });
 }
 
