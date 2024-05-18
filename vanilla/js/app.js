@@ -30,12 +30,19 @@ function init() {
       store.stats.ties,
       store.stats.playerWithStats[1].wins
     );
-    console.log(store.stats);
+    // console.log(store.stats);
   });
 
   view.bindScoresResetEvent((event) => {
-    console.log("Scores Reset Event");
-    console.log(event);
+    store.resetScores();
+    view.closeAll();
+    view.clearBoard();
+    view.setTurnIndicator(players[0]);
+    view.updateScoreBoard(
+      store.stats.playerWithStats[0].wins,
+      store.stats.ties,
+      store.stats.playerWithStats[1].wins
+    );
   });
 
   view.bindPlayerMoveEvent((square) => {

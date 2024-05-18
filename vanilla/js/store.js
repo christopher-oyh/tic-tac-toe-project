@@ -101,6 +101,14 @@ export default class Store {
     this.#saveState(stateClone);
   }
 
+  resetScores() {
+    this.resetGame();
+    const stateClone = structuredClone(this.#getState());
+    stateClone.history.allGames.push(...stateClone.history.currentRoundGames);
+    stateClone.history.currentRoundGames = [];
+    this.#saveState(stateClone);
+  }
+
   #getState() {
     return this.#state;
   }
