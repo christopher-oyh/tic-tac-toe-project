@@ -9,8 +9,8 @@ export default class View {
     this.$.menuItems = this.#qsCheck("[data-id='menu-items']");
     this.$.resetBtn = this.#qsCheck("[data-id='reset-btn']");
     this.$.resetScoresBtn = this.#qsCheck("[data-id='reset-scores-btn']");
-    this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
-    this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
+    // this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
+    // this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
 
     this.$$.squares = this.#qsAllCheck("[data-id='squares']");
 
@@ -27,6 +27,30 @@ export default class View {
     this.$.menuBtn.addEventListener("click", (e) => {
       this.#toggleMenu();
     });
+  }
+
+  render(game, stats) {
+    const { playerWithStats, ties } = stats;
+    const {
+      currentGameMoves,
+      currentPlayer,
+      status: { isComplete, winner },
+    } = game;
+
+    this.#closeAll();
+    this.#clearBoard();
+    this.#updateScoreBoard(
+      playerWithStats[0].wins,
+      ties,
+      playerWithStats[1].wins
+    );
+    this.#initializeBoard(currentGameMoves);
+
+    if (isComplete) {
+      this.#openModal(winner ? `${winner.name} won!` : "It's a draw!");
+    }
+
+    this.#setTurnIndicator(currentPlayer);
   }
 
   /**
@@ -51,25 +75,35 @@ export default class View {
   /**
    *  DOM Helper Methods
    */
-  updateScoreBoard(p1Wins, ties, p2Wins) {
+  #updateScoreBoard(p1Wins, ties, p2Wins) {
     this.$.p1Wins.innerText = `${p1Wins} Wins`;
     this.$.ties.innerText = `${ties}`;
     this.$.p2Wins.innerText = `${p2Wins} Wins`;
   }
 
-  openModal(message) {
+  #openModal(message) {
     this.$.modalText.innerText = message;
     this.$.modal.classList.remove("hidden");
   }
 
-  closeAll() {
+  #closeAll() {
     this.#closeModal();
     this.#closeMenu();
   }
 
-  clearBoard() {
+  #clearBoard() {
     this.$$.squares.forEach((sq) => {
       sq.innerHTML = "";
+    });
+  }
+
+  #initializeBoard(moves) {
+    // console.log("Moves: ", moves);
+    this.$$.squares.forEach((square) => {
+      const existingMove = moves.find((move) => move.squareID === +square.id);
+      if (existingMove) {
+        this.#handlePlayerMove(square, existingMove.player);
+      }
     });
   }
 
@@ -94,7 +128,7 @@ export default class View {
     icon.classList.toggle("fa-caret-up");
   }
 
-  setTurnIndicator(player) {
+  #setTurnIndicator(player) {
     // Player could be 1 or 2
     const icon = document.createElement("i");
     const label = document.createElement("p");
@@ -106,7 +140,7 @@ export default class View {
     this.$.turn.replaceChildren(icon, label);
   }
 
-  handlePlayerMove(squareElement, player) {
+  #handlePlayerMove(squareElement, player) {
     const icon = document.createElement("i");
     icon.classList.add("fa", player.iconClass, player.colorClass);
     squareElement.replaceChildren(icon);

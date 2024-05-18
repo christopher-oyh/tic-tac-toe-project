@@ -18,31 +18,40 @@ const players = [
 
 function init() {
   const view = new View();
-  const store = new Store(players);
+
+  const store = new Store("t3-storage-key", players);
+
+  // State change from the same window
+  store.addEventListener("stateChange", () => {
+    view.render(store.game, store.stats);
+  });
+
+  // State change from another window
+  window.addEventListener("storage", () => {
+    console.log("State Updated from another Window");
+    view.render(store.game, store.stats);
+  });
+
+  view.render(store.game, store.stats);
+  //   function initView() {
+  //     view.closeAll();
+  //     view.clearBoard();
+  //     view.setTurnIndicator(store.game.currentPlayer);
+  //     view.updateScoreBoard(
+  //       store.stats.playerWithStats[0].wins,
+  //       store.stats.ties,
+  //       store.stats.playerWithStats[1].wins
+  //     );
+  //     // console.log("Current Game Moves: ", store.game.currentGameMoves);
+  //     view.initializeBoard(store.game.currentGameMoves);
+  //   }
 
   view.bindGameResetEvent((event) => {
-    view.closeAll();
     store.resetGame();
-    view.clearBoard();
-    view.setTurnIndicator(players[0]);
-    view.updateScoreBoard(
-      store.stats.playerWithStats[0].wins,
-      store.stats.ties,
-      store.stats.playerWithStats[1].wins
-    );
-    // console.log(store.stats);
   });
 
   view.bindScoresResetEvent((event) => {
     store.resetScores();
-    view.closeAll();
-    view.clearBoard();
-    view.setTurnIndicator(players[0]);
-    view.updateScoreBoard(
-      store.stats.playerWithStats[0].wins,
-      store.stats.ties,
-      store.stats.playerWithStats[1].wins
-    );
   });
 
   view.bindPlayerMoveEvent((square) => {
@@ -58,23 +67,24 @@ function init() {
     }
 
     // Place icon on the square
-    view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
+    // view.handlePlayerMove(clickedSquare, store.game.currentPlayer);
 
     // Update the game state with the move
-    store.playerMove(clickedSquare.id);
+    store.playerMove(+clickedSquare.id);
 
-    // Check if the game is over
-    if (store.game.status.isComplete) {
-      view.openModal(
-        store.game.status.winner
-          ? `${store.game.status.winner.name} won!`
-          : "It's a draw!"
-      );
-      return;
-    }
+    // // Check if the game is over
+    // if (store.game.status.isComplete) {
+    //   view.openModal(
+    //     store.game.status.winner
+    //       ? `${store.game.status.winner.name} won!`
+    //       : "It's a draw!"
+    //   );
+    //   return;
+    // }
 
-    // Set the next player turn indicator from the store since state has changed
-    view.setTurnIndicator(store.game.currentPlayer);
+    // // Set the next player turn indicator from the store since state has changed
+    // view.setTurnIndicator(store.game.currentPlayer);
+    // view.render(store.game, store.stats);
   });
 }
 
