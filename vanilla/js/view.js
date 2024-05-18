@@ -52,8 +52,9 @@ export default class View {
     this.$.modal.classList.remove("hidden");
   }
 
-  closeModal() {
-    this.$.modal.classList.add("hidden");
+  closeAll() {
+    this.#closeModal();
+    this.#closeMenu();
   }
 
   clearBoard() {
@@ -62,6 +63,18 @@ export default class View {
     });
   }
 
+  #closeModal() {
+    this.$.modal.classList.add("hidden");
+  }
+
+  #closeMenu() {
+    this.$.menuItems.classList.add("hidden");
+    this.$.menuBtn.classList.remove("border");
+
+    const icon = this.$.menuBtn.querySelector("i");
+    icon.classList.remove("fa-caret-up");
+    icon.classList.add("fa-caret-down");
+  }
   #toggleMenu() {
     this.$.menuItems.classList.toggle("hidden");
     this.$.menuBtn.classList.toggle("border");
