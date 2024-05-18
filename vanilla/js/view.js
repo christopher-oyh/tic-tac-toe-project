@@ -9,8 +9,8 @@ export default class View {
     this.$.menuItems = this.#qsCheck("[data-id='menu-items']");
     this.$.resetBtn = this.#qsCheck("[data-id='reset-btn']");
     this.$.resetScoresBtn = this.#qsCheck("[data-id='reset-scores-btn']");
-    this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
-    this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
+    // this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
+    // this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
 
     this.$$.squares = this.#qsAllCheck("[data-id='squares']");
 
