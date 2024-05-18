@@ -74,7 +74,7 @@ export default class View {
   }
 
   initializeBoard(moves) {
-    console.log("Moves: ", moves);
+    // console.log("Moves: ", moves);
     this.$$.squares.forEach((square) => {
       const existingMove = moves.find((move) => move.squareID === +square.id);
       if (existingMove) {

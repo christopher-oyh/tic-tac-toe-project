@@ -28,7 +28,7 @@ export default class Store {
 
   get stats() {
     const state = this.#getState();
-    console.log("Stats: ", this.#getState());
+    // console.log("Stats: ", this.#getState());
     return {
       playerWithStats: this.players.map((player) => {
         const wins = state.history.currentRoundGames.filter(

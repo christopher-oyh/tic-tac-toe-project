@@ -21,7 +21,7 @@ function init() {
   const store = new Store("t3-storage-key", players);
   initView();
   window.addEventListener("storage", () => {
-    console.log("State Changed from another window!");
+    console.log("State Updated from another Window");
     initView();
   });
 
@@ -34,7 +34,7 @@ function init() {
       store.stats.ties,
       store.stats.playerWithStats[1].wins
     );
-    console.log("Current Game Moves: ", store.game.currentGameMoves);
+    // console.log("Current Game Moves: ", store.game.currentGameMoves);
     view.initializeBoard(store.game.currentGameMoves);
   }
 
