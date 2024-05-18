@@ -18,7 +18,7 @@ const players = [
 
 function init() {
   const view = new View();
-  const store = new Store(players);
+  const store = new Store("t3-storage-key", players);
 
   view.bindGameResetEvent((event) => {
     view.closeAll();

@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export default class Store {
-  #state = initialState;
   #winningCombination = [
     // Horizontal
     [1, 2, 3],
@@ -22,15 +21,17 @@ export default class Store {
     [3, 5, 7],
   ];
 
-  constructor(players) {
+  constructor(key, players) {
+    this.storageKey = key;
     this.players = players;
   }
 
   get stats() {
+    const state = this.#getState();
     console.log("Stats: ", this.#getState());
     return {
       playerWithStats: this.players.map((player) => {
-        const wins = this.#state.history.currentRoundGames.filter(
+        const wins = state.history.currentRoundGames.filter(
           (game) => game.status.winner?.id == player.id
         ).length;
 
@@ -39,7 +40,7 @@ export default class Store {
           wins,
         };
       }),
-      ties: this.#state.history.currentRoundGames.filter(
+      ties: state.history.currentRoundGames.filter(
         (game) => game.status.winner === null
       ).length,
     };
@@ -48,7 +49,7 @@ export default class Store {
   get game() {
     const state = this.#getState();
 
-    const currentPlayer = this.players[this.#state.currentGameMoves.length % 2];
+    const currentPlayer = this.players[state.currentGameMoves.length % 2];
 
     let winner = null;
     for (const player of this.players) {
@@ -110,7 +111,8 @@ export default class Store {
   }
 
   #getState() {
-    return this.#state;
+    const item = window.localStorage.getItem(this.storageKey);
+    return item ? JSON.parse(item) : initialState;
   }
 
   #saveState(stateOrCallback) {
@@ -127,6 +129,6 @@ export default class Store {
       default:
         throw new Error("Invalid state or callback provided to saveState");
     }
-    this.#state = newState;
+    window.localStorage.setItem(this.storageKey, JSON.stringify(newState));
   }
 }
