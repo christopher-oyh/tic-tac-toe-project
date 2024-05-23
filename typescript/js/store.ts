@@ -1,3 +1,5 @@
+import { Player } from "./types";
+
 const initialState = {
   currentGameMoves: [], // squareID, player
   history: {
@@ -21,10 +23,11 @@ export default class Store extends EventTarget {
     [3, 5, 7],
   ];
 
-  constructor(key, players) {
+  constructor(
+    private readonly storageKey: string,
+    private readonly players: Player[]
+  ) {
     super();
-    this.storageKey = key;
-    this.players = players;
   }
 
   get stats() {

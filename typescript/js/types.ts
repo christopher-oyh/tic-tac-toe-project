@@ -1,26 +1,26 @@
-type Player = {
+export type Player = {
   id: number;
   name: string;
   iconClass: string;
   colorClass: string;
 };
 
-type GameMove = {
+export type GameMove = {
   squareID: number;
   player: Player;
 };
 
-type GameStatus = {
+export type GameStatus = {
   isComplete: boolean;
   winner: Player | null;
 };
 
-type Game = {
+export type Game = {
   moves: GameMove[];
   status: GameStatus;
 };
 
-type GameState = {
+export type GameState = {
   currentGameMoves: GameMove[];
   history: {
     currentRoundGames: Game[];
