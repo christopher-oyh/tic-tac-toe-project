@@ -1,3 +1,7 @@
+/**
+ * DEPRECATED
+ * This file is deprecated and replaced by the app.js, view.js, and store.js files
+ */
 console.log("Hello from vanilla/js/index.js!");
 import View from "./view.js";
 
