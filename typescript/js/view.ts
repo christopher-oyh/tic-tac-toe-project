@@ -1,7 +1,10 @@
+import Store from "./store";
+import { Game, GameStatus, GameMove, Player } from "./types";
+
 export default class View {
   // Class properties
-  $ = {};
-  $$ = {};
+  $: Record<string, Element> = {}; // Using typescript generics
+  $$: Record<string, NodeListOf<Element>> = {};
 
   constructor() {
     this.$.menu = this.#qsCheck("[data-id='menu']");
@@ -12,6 +15,7 @@ export default class View {
     // this.$.undoBtn = this.#qsCheck("[data-id='undo-btn']");
     // this.$.redoBtn = this.#qsCheck("[data-id='redo-btn']");
 
+    this.$.grid = this.#qsCheck("[data-id='grid']");
     this.$$.squares = this.#qsAllCheck("[data-id='squares']");
 
     this.$.modal = this.#qsCheck("[data-id='modal']");
@@ -29,7 +33,8 @@ export default class View {
     });
   }
 
-  render(game, stats) {
+  // Showcasing possible way to get typescript to recognize the properties
+  render(game: Store["game"], stats: Store["stats"]) {
     const { playerWithStats, ties } = stats;
     const {
       currentGameMoves,
@@ -56,33 +61,34 @@ export default class View {
   /**
    *  Register all the event listeners
    */
-  bindGameResetEvent(handler) {
+  bindGameResetEvent(handler: EventListener) {
     this.$.resetBtn.addEventListener("click", handler);
     this.$.modalBtn.addEventListener("click", handler);
   }
 
-  bindScoresResetEvent(handler) {
+  bindScoresResetEvent(handler: EventListener) {
     this.$.resetScoresBtn.addEventListener("click", handler);
   }
 
-  bindPlayerMoveEvent(handler) {
-    this.$$.squares.forEach((square) => {
-      // Pass the square element to the handler instead of the event
-      square.addEventListener("click", () => handler(square));
-    });
+  bindPlayerMoveEvent(handler: EventListener) {
+    this.#delegate(this.$.grid, "[data-id='squares']", "click", handler);
+    // this.$$.squares.forEach((square) => {
+    //   // Pass the square element to the handler instead of the event
+    //   square.addEventListener("click", () => handler(square));
+    // });
   }
 
   /**
    *  DOM Helper Methods
    */
-  #updateScoreBoard(p1Wins, ties, p2Wins) {
-    this.$.p1Wins.innerText = `${p1Wins} Wins`;
-    this.$.ties.innerText = `${ties}`;
-    this.$.p2Wins.innerText = `${p2Wins} Wins`;
+  #updateScoreBoard(p1Wins: number, ties: number, p2Wins: number) {
+    this.$.p1Wins.textContent = `${p1Wins} Wins`;
+    this.$.ties.textContent = `${ties}`;
+    this.$.p2Wins.textContent = `${p2Wins} Wins`;
   }
 
-  #openModal(message) {
-    this.$.modalText.innerText = message;
+  #openModal(message: string) {
+    this.$.modalText.textContent = message;
     this.$.modal.classList.remove("hidden");
   }
 
@@ -97,7 +103,7 @@ export default class View {
     });
   }
 
-  #initializeBoard(moves) {
+  #initializeBoard(moves: GameMove[]) {
     // console.log("Moves: ", moves);
     this.$$.squares.forEach((square) => {
       const existingMove = moves.find((move) => move.squareID === +square.id);
@@ -115,20 +121,25 @@ export default class View {
     this.$.menuItems.classList.add("hidden");
     this.$.menuBtn.classList.remove("border");
 
-    const icon = this.$.menuBtn.querySelector("i");
+    // const icon = this.$.menuBtn.querySelector("i");
+    const icon = this.#qsCheck("i", this.$.menuBtn); // type narrowing
+
     icon.classList.remove("fa-caret-up");
     icon.classList.add("fa-caret-down");
   }
+
   #toggleMenu() {
     this.$.menuItems.classList.toggle("hidden");
     this.$.menuBtn.classList.toggle("border");
 
-    const icon = this.$.menuBtn.querySelector("i");
+    // const icon = this.$.menuBtn.querySelector("i");
+    const icon = this.#qsCheck("i", this.$.menuBtn); // type narrowing
+
     icon.classList.toggle("fa-caret-down");
     icon.classList.toggle("fa-caret-up");
   }
 
-  #setTurnIndicator(player) {
+  #setTurnIndicator(player: Player) {
     // Player could be 1 or 2
     const icon = document.createElement("i");
     const label = document.createElement("p");
@@ -140,13 +151,13 @@ export default class View {
     this.$.turn.replaceChildren(icon, label);
   }
 
-  #handlePlayerMove(squareElement, player) {
+  #handlePlayerMove(squareElement: Element, player: Player) {
     const icon = document.createElement("i");
     icon.classList.add("fa", player.iconClass, player.colorClass);
     squareElement.replaceChildren(icon);
   }
 
-  #qsCheck(selector, parent) {
+  #qsCheck(selector: string, parent?: Element) {
     const ele = parent
       ? parent.querySelector(selector)
       : document.querySelector(selector);
@@ -156,11 +167,37 @@ export default class View {
     return ele;
   }
 
-  #qsAllCheck(selector) {
+  #qsAllCheck(selector: string) {
     const eleList = document.querySelectorAll(selector);
     if (!eleList.length) {
       throw new Error(`Element with selector ${selector} not found`);
     }
     return eleList;
+  }
+
+  /**
+   * Rather than registering event listeners on every child element in our Tic Tac Toe grid, we can
+   * listen to the grid container and derive which square was clicked using the matches() function.
+   *
+   * @param {*} el the "container" element you want to listen for events on
+   * @param {*} selector the "child" elements within the "container" you want to handle events for
+   * @param {*} eventKey the event type you are listening for (e.g. "click" event)
+   * @param {*} handler the callback function that is executed when the specified event is triggered on the specified children
+   */
+  #delegate(
+    el: Element,
+    selector: string,
+    eventKey: string,
+    handler: (el: Element) => void
+  ) {
+    el.addEventListener(eventKey, (event) => {
+      if (!(event.target instanceof Element)) {
+        throw new Error("Event Target not found");
+      }
+
+      if (event.target.matches(selector)) {
+        handler(event.target);
+      }
+    });
   }
 }
