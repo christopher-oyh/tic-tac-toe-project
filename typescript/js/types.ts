@@ -16,7 +16,7 @@ export type GameStatus = {
 };
 
 export type Game = {
-  moves: GameMove[];
+  currentGameMoves: GameMove[];
   status: GameStatus;
 };
 
