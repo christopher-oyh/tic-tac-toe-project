@@ -1,4 +1,4 @@
-import { GameState, Player } from "./types";
+import { GameStatus, GameMove, GameState, Player } from "./types";
 
 const initialState: GameState = {
   currentGameMoves: [], // squareID, player
@@ -6,6 +6,23 @@ const initialState: GameState = {
     currentRoundGames: [],
     allGames: [],
   },
+};
+
+export type DerivedStats = {
+  playerWithStats: {
+    id: number;
+    name: string;
+    iconClass: string;
+    colorClass: string;
+    wins: number;
+  }[];
+  ties: number;
+};
+
+export type DerivedGame = {
+  currentPlayer: Player;
+  currentGameMoves: GameMove[];
+  status: GameStatus;
 };
 
 export default class Store extends EventTarget {
@@ -30,7 +47,7 @@ export default class Store extends EventTarget {
     super();
   }
 
-  get stats() {
+  get stats(): DerivedStats {
     const state = this.#getState();
     // console.log("Stats: ", this.#getState());
     return {
@@ -50,7 +67,7 @@ export default class Store extends EventTarget {
     };
   }
 
-  get game() {
+  get game(): DerivedGame {
     const state = this.#getState();
 
     const currentPlayer = this.players[state.currentGameMoves.length % 2];

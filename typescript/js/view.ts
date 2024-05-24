@@ -1,4 +1,4 @@
-import Store from "./store";
+import Store, { DerivedStats, DerivedGame } from "./store";
 import { Game, GameStatus, GameMove, Player } from "./types";
 
 export default class View {
@@ -34,7 +34,7 @@ export default class View {
   }
 
   // Showcasing possible way to get typescript to recognize the properties
-  render(game: Store["game"], stats: Store["stats"]) {
+  render(game: DerivedGame, stats: DerivedStats) {
     const { playerWithStats, ties } = stats;
     const {
       currentGameMoves,
