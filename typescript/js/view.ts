@@ -70,7 +70,7 @@ export default class View {
     this.$.resetScoresBtn.addEventListener("click", handler);
   }
 
-  bindPlayerMoveEvent(handler: EventListener) {
+  bindPlayerMoveEvent(handler: (el: Element) => void) {
     this.#delegate(this.$.grid, "[data-id='squares']", "click", handler);
     // this.$$.squares.forEach((square) => {
     //   // Pass the square element to the handler instead of the event
