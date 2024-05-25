@@ -1,5 +1,6 @@
 import "./App.css";
 import Footer from "./components/Footer";
+import Modal from "./components/Modal";
 
 export default function App() {
   // return (
@@ -63,15 +64,8 @@ export default function App() {
       </main>
 
       <Footer />
+      <Modal />
 
-      {/* <!-- Modal when game ends --> */}
-      <div className="modal hidden" data-id="modal">
-        <div className="modal-content" data-id="modal-contents">
-          <h1>Game Over</h1>
-          <p data-id="modal-text">Player 1 Wins</p>
-          <button data-id="modal-btn">Play Again</button>
-        </div>
-      </div>
       <script src="dist/app.js" type="module"></script>
       {/* <!-- <script src="js/index.js" type="module"></script> --> */}
       {/* <!-- <script src="js/view.js"></script> --> */}
