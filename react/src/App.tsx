@@ -1,5 +1,6 @@
 import "./App.css";
 import Footer from "./components/Footer";
+import Menu from "./components/Menu";
 import Modal from "./components/Modal";
 
 export default function App() {
@@ -15,33 +16,14 @@ export default function App() {
             <p className="turquoise">Player 1's turn</p>
           </div>
 
-          {/* <!-- Dropdown menu --> */}
-          <div className="menu" data-id="menu">
-            <button className="menu-btn" data-id="menu-btn">
-              Actions
-              <i className="fa fa-caret-down" aria-hidden="true"></i>
-            </button>
-
-            <div className="items border hidden" data-id="menu-items">
-              <button className="items-btn" data-id="reset-btn">
-                Reset Game
-              </button>
-              <button className="items-btn" data-id="reset-scores-btn">
-                Reset Scores
-              </button>
-            </div>
-          </div>
+          <Menu onAction={(action) => console.log(action)} />
 
           {/* <!-- Game board --> */}
-          <div id="1" data-id="squares" className="squares shadow"></div>
-          <div id="2" data-id="squares" className="squares shadow"></div>
-          <div id="3" data-id="squares" className="squares shadow"></div>
-          <div id="4" data-id="squares" className="squares shadow"></div>
-          <div id="5" data-id="squares" className="squares shadow"></div>
-          <div id="6" data-id="squares" className="squares shadow"></div>
-          <div id="7" data-id="squares" className="squares shadow"></div>
-          <div id="8" data-id="squares" className="squares shadow"></div>
-          <div id="9" data-id="squares" className="squares shadow"></div>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((squareID) => (
+            <div key={squareID} className="squares shadow">
+              <i className="fa fa-times turquoise"></i>
+            </div>
+          ))}
 
           {/* <!-- Score board --> */}
           <div id="player1-box" className="score shadow">
