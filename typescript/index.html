@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div class="grid" data-id="grid">
+        <!-- Turn indicator -->
+        <div class="turn" data-id="turn">
+          <i class="fa fa-times turquoise"></i>
+          <p class="turquoise">Player 1's turn</p>
+        </div>
+
+        <!-- Dropdown menu -->
+        <div class="menu" data-id="menu">
+          <button class="menu-btn" data-id="menu-btn">
+            Actions
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </button>
+
+          <div class="items border hidden" data-id="menu-items">
+            <button class="items-btn" data-id="reset-btn">Reset Game</button>
+            <button class="items-btn" data-id="reset-scores-btn">
+              Reset Scores
+            </button>
+          </div>
+        </div>
+
+        <!-- Game board -->
+        <div id="1" data-id="squares" class="squares shadow"></div>
+        <div id="2" data-id="squares" class="squares shadow"></div>
+        <div id="3" data-id="squares" class="squares shadow"></div>
+        <div id="4" data-id="squares" class="squares shadow"></div>
+        <div id="5" data-id="squares" class="squares shadow"></div>
+        <div id="6" data-id="squares" class="squares shadow"></div>
+        <div id="7" data-id="squares" class="squares shadow"></div>
+        <div id="8" data-id="squares" class="squares shadow"></div>
+        <div id="9" data-id="squares" class="squares shadow"></div>
+
+        <!-- Score board -->
+        <div id="player1-box" class="score shadow">
+          <p>Player 1</p>
+          <span data-id="p1-wins">0 Wins</span>
+        </div>
+        <div id="ties-box" class="score shadow">
+          <p>Draw</p>
+          <span data-id="ties">0 </span>
+        </div>
+        <div id="player2-box" class="score shadow">
+          <p>Player 2</p>
+          <span data-id="p2-wins">0 Wins</span>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Created by
+        <a href="https://github.com/christopher-oyh">@christopher-oyh</a>
+      </p>
+    </footer>
+
+    <!-- Modal when game ends -->
+    <div class="modal hidden" data-id="modal">
+      <div class="modal-content" data-id="modal-contents">
+        <h1>Game Over</h1>
+        <p data-id="modal-text">Player 1 Wins</p>
+        <button data-id="modal-btn">Play Again</button>
+      </div>
+    </div>
+    <script src="dist/app.js" type="module"></script>
+    <!-- <script src="js/index.js" type="module"></script> -->
+    <!-- <script src="js/view.js"></script> -->
+  </body>
+</html>
