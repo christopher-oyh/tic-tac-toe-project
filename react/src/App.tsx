@@ -3,11 +3,7 @@ import Footer from "./components/Footer";
 import Modal from "./components/Modal";
 
 export default function App() {
-  // return (
-  //   <div>
-  //     <p>Hello World from React App</p>
-  //   </div>
-  // );
+  const showModal = false;
 
   return (
     <>
@@ -64,7 +60,7 @@ export default function App() {
       </main>
 
       <Footer />
-      <Modal />
+      {showModal && <Modal message="Player 1 Wins" />}
 
       <script src="dist/app.js" type="module"></script>
       {/* <!-- <script src="js/index.js" type="module"></script> --> */}
