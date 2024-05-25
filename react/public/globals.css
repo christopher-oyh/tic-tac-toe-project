@@ -225,20 +225,6 @@ viewport width is equal to or greater than 768 pixels. */
   gap: 10px; */
 }
 
-footer {
-  color: var(--white);
-  margin-top: 50px;
-}
-
-footer p {
-  text-align: center;
-  margin-top: 10px;
-}
-
-footer a {
-  color: var(--turquoise);
-}
-
 /* Modal Styles */
 .modal {
   display: flex;
