@@ -25,6 +25,10 @@ Each implementation of the game includes the following features:
 - Local storage to persist the scores across page reloads.
 - State Management allowing game to be played in multiple tabs.
 
+## Running the Game
+
+The Game is hosted on GitHub Pages. You can play the game by visiting the following link: [Tic Tac Toe](https://christopher-oyh.github.io/tic-tac-toe-project/)
+
 ## Game Play
 
 ![Tic Tac Toe](./images/game.png)
