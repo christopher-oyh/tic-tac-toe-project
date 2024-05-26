@@ -6,6 +6,7 @@ import Modal from "./components/Modal";
 import { Game, GameState, Player } from "./types";
 import classnames from "classnames";
 import { stat } from "fs";
+import { useLocalStorage } from "./components/useLocalStorage";
 
 const players: Player[] = [
   {
@@ -86,13 +87,21 @@ function derivedStats(state: GameState) {
 }
 
 export default function App() {
-  const [state, setState] = useState<GameState>({
-    currentGameMoves: [], // squareID, player
+  // const [state, setState] = useState<GameState>({
+  //   currentGameMoves: [], // squareID, player
+  //   history: {
+  //     currentRoundGames: [],
+  //     allGames: [],
+  //   },
+  // });
+  const initialState: GameState = {
+    currentGameMoves: [],
     history: {
       currentRoundGames: [],
       allGames: [],
     },
-  });
+  };
+  const [state, setState] = useLocalStorage("t3-storage-key", initialState);
 
   const game = derivedGame(state);
   const stats = derivedStats(state);
@@ -149,7 +158,7 @@ export default function App() {
             <p className="turquoise">Player 1's turn</p> */}
           </div>
 
-          <Menu onAction={(action) => resetGame(action === "reset-game")} />
+          <Menu onAction={(action) => resetGame(action === "reset-scores")} />
 
           {/* <!-- Game board --> */}
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((squareID) => {
