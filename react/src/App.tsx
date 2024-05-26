@@ -66,6 +66,7 @@ function derivedGame(state: GameState) {
     },
   };
 }
+
 function derivedStats(state: GameState) {
   return {
     playerWithStats: players.map((player) => {
@@ -136,11 +137,16 @@ export default function App() {
   return (
     <>
       <main>
-        <div className="grid" data-id="grid">
+        <div className="grid">
           {/* <!-- Turn indicator --> */}
-          <div className="turn" data-id="turn">
-            <i className="fa fa-times turquoise"></i>
-            <p className="turquoise">Player 1's turn</p>
+          <div
+            className={classnames("turn", game.currentPlayer.colorClass)}
+            data-id="turn"
+          >
+            <i className={classnames("fa", game.currentPlayer.iconClass)}></i>
+            <p>{game.currentPlayer.name}'s turn</p>
+            {/* <i className="fa fa-times turquoise"></i>
+            <p className="turquoise">Player 1's turn</p> */}
           </div>
 
           <Menu onAction={(action) => resetGame(action === "reset-game")} />
