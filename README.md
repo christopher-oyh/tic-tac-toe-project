@@ -22,11 +22,13 @@ Each implementation of the game includes the following features:
 - A reset game button that allows players to start a new game.
 - A reset scores button that resets the score board.
 - A modal that appears when the game ends, displaying the winner or indicating a draw.
+- Local storage to persist the scores across page reloads.
+- State Management allowing game to be played in multiple tabs.
 
-## Running the Project
+## Game Play
 
-Each implementation has its own build and run instructions. Please refer to the respective directories for more information.
+![Tic Tac Toe](./images/game.png)
 
-## Author
+![Game Over](./images/game-over.png)
 
-This project was created by [@christopher-oyh](https://github.com/christopher-oyh).
+![Menu](./images/menu.png)
