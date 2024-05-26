@@ -1,0 +1,41 @@
+/* Menu Styles */
+
+.menu {
+  /* background-color: var(--turquoise); */
+  /* Using relative as we will need it to get the position for dropdown */
+  position: relative;
+}
+
+.menu-btn {
+  /* background-color: var(--turquoise); */
+  color: var(--lime-warm);
+  background-color: var(--gray);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.menu .items {
+  /* position will be relative to nearest parent with relative position */
+  /* position: absolute; */
+  /* z-index: 10; */
+  top: 100%;
+  right: 0;
+  background-color: var(--gray);
+  border-radius: 10px;
+}
+
+.menu .items button {
+  background-color: transparent;
+  padding: 10px 20px;
+  color: var(--white);
+}
+
+.menu .items button:hover {
+  background-color: var(--turquoise);
+  cursor: pointer;
+}
